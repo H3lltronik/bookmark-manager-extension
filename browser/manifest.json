@@ -1,0 +1,16 @@
+{
+  "name": "Bookmark Manager",
+  "version": "1.0.0",
+  "author": "H3lltronik",
+  "description": "A cool extension",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["https://*.youtube.com/*"],
+  "manifest_version": 3,
+  "action": {
+    "default_title": "Coolest extension",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

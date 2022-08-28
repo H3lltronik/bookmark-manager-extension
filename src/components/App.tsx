@@ -1,11 +1,17 @@
 import * as React from 'react'
-import {useState} from 'react';
+import { useState, useEffect } from 'react'
 
 export interface IUser {
     name: string;
     age: number;
 }
-export default function App () {
+export default function App() {
+
+    useEffect(() => {
+        console.log("aca")
+    }, [])
+
+
     const [users, setUsers] = useState<IUser[]>([
         {
             name: "Bijaya",
