@@ -1,5 +1,8 @@
 const mix = require('laravel-mix');
 
-mix.js('src/app.ts', 'dist')
+mix.ts('src/index.tsx', 'dist')
    .sass('src/assets/main.scss', 'dist')
+   .react()
    .setPublicPath('dist');
+
+mix.copy('./browser', './dist');
