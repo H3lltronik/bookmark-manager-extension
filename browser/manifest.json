@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "H3lltronik",
   "description": "A cool extension",
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "bookmarks"],
   "host_permissions": ["https://*.youtube.com/*"],
   "manifest_version": 3,
   "action": {
@@ -12,5 +12,13 @@
   },
   "background": {
     "service_worker": "background.js"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V",
+        "mac": "MacCtrl+Shift+V"
+      }
+    }
   }
 }

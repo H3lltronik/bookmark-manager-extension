@@ -1,36 +1,49 @@
 import * as React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
+import { BookmarkTreeNode, useBookmarksStore } from '../store';
 
-export interface IUser {
-    name: string;
-    age: number;
-}
 export default function App() {
+    const setBookmarks = useBookmarksStore(state => state.setBookmarks);
+    const filteredBookmarks = useBookmarksStore(state => state.getFilteredBookmarks());
+    const setSearchString = useBookmarksStore(state => state.setSearchString);
+    const searchString = useBookmarksStore(state => state.searchString);
 
     useEffect(() => {
-        console.log("aca")
+        (async () => {
+            const bookmarks = await chrome.bookmarks.getTree();
+            setBookmarks(bookmarks);
+        })()
     }, [])
 
 
-    const [users, setUsers] = useState<IUser[]>([
-        {
-            name: "Bijaya",
-            age: 25,
-        },
-        {
-            name: "Ram",
-            age: 25,
-        },
-    ]);
+    const inputTest = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchString(event.target.value);
+    }
+
+    const openBookmark = (url: string | undefined) => {
+        chrome.tabs.create({url, active: true});
+    }
 
     return (
         <div>
-            <h1>Users list</h1>
+            <h1>Bookmark Manager</h1>
+
+            {
+                searchString?
+                <div>Searching for: {searchString}</div>
+                :null
+            }
+
+            <input type="text" onChange={inputTest} autoFocus={true}/>
+
+            
             <ul>
-                {users.map((user: IUser) => {
+                {filteredBookmarks.map((bookmark: BookmarkTreeNode) => {
                     return (
-                        <li>
-                            {user.name} is {user.age} years old
+                        <li key={bookmark.dateAdded}>
+                            <a href={bookmark.url} onClick={() => openBookmark(bookmark.url)}>
+                                {bookmark.title}
+                            </a>
                         </li>
                     );
                 })}

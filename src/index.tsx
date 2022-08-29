@@ -1,6 +1,8 @@
 import React from "react";
-import { render } from "react-dom";
+import { createRoot } from 'react-dom/client'
 import App from "./components/App";
 
-console.log("aber si aqui")
-render(<App />, document.getElementById("app"));
+const appDiv = document.getElementById("app");
+if (appDiv) {
+    createRoot(appDiv).render(<App />)
+}

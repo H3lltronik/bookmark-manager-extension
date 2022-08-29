@@ -6,6 +6,7 @@ mix.ts('src/index.tsx', 'dist')
    .options({
       processCssUrls: false,
    })
-   .setPublicPath('dist');
+   .setPublicPath('dist')
+   .disableNotifications();
 
 mix.copy('./browser', './dist');
